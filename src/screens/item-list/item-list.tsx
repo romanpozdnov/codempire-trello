@@ -2,7 +2,8 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Card, ListItem} from 'react-native-elements';
 
-import IconButton from '../../components/icon-button/icon-button';
+import NavBar from '../../components/nav-bar/nav-bar';
+import CreateButton from '../../components/icon-button/create-button';
 
 const list = [
   {
@@ -35,6 +36,7 @@ const ItemList = ({navigation}) => {
   return (
     <>
       <View style={styles.list}>
+        <NavBar />
         <Card>
           <View>
             {list.map((item, i) => (
@@ -48,7 +50,7 @@ const ItemList = ({navigation}) => {
             ))}
           </View>
         </Card>
-        <IconButton navigation={navigation} />
+        <CreateButton navigation={navigation} />
       </View>
     </>
   );

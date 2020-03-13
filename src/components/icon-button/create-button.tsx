@@ -4,7 +4,7 @@ import {Icon} from 'react-native-elements';
 
 import * as ROUTES from '../../constants/routes';
 
-const IconButton = ({navigation}) => {
+const CreateButton = ({navigation}) => {
   return (
     <View style={styles.addTaskIcon}>
       <Icon
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IconButton;
+export default CreateButton;

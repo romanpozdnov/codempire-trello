@@ -12,7 +12,6 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Button} from 'react-native';
 
 import ItemList from './src/screens/item-list/item-list';
 import CreateTask from './src/screens/create-task/create-task';
@@ -25,13 +24,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="ItemList">
-        <Stack.Screen
-          name={ROUTES.ITEMLIST}
-          component={ItemList}
-          options={{
-            headerRight: () => <Button title="NEXT" />,
-          }}
-        />
+        <Stack.Screen name={ROUTES.ITEMLIST} component={ItemList} />
         <Stack.Screen name={ROUTES.CREATETASK} component={CreateTask} />
       </Stack.Navigator>
     </NavigationContainer>
