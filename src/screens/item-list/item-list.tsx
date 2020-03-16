@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {Card, ListItem} from 'react-native-elements';
 
 import NavBar from '../../components/nav-bar/nav-bar';
-import CreateButton from '../../components/icon-button/create-button';
+import {IconButton} from '../../components/icon-button';
 
 const list = [
   {
@@ -34,25 +34,23 @@ const list = [
 
 const ItemList = ({navigation}) => {
   return (
-    <>
-      <View style={styles.list}>
-        <NavBar />
-        <Card>
-          <View>
-            {list.map((item, i) => (
-              <ListItem
-                key={i}
-                title={item.title}
-                leftIcon={{name: item.icon}}
-                bottomDivider
-                chevron
-              />
-            ))}
-          </View>
-        </Card>
-        <CreateButton navigation={navigation} />
-      </View>
-    </>
+    <View style={styles.list}>
+      <NavBar />
+      <Card>
+        <View>
+          {list.map((item, i) => (
+            <ListItem
+              key={i}
+              title={item.title}
+              leftIcon={{name: item.icon}}
+              bottomDivider
+              chevron
+            />
+          ))}
+        </View>
+      </Card>
+      <IconButton navigation={navigation} />
+    </View>
   );
 };
 
