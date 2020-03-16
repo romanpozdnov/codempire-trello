@@ -16,8 +16,8 @@ import {
 } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import ItemList from './src/screens/item-list/item-list';
-import CreateTask from './src/screens/create-task/create-task';
+import {ItemList} from './src/screens/item-list/';
+import {CreateTask} from './src/screens/create-task/';
 
 import * as ROUTES from './src/constants/routes';
 

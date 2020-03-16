@@ -1,32 +1,22 @@
 import React from 'react';
 
-import {StyleSheet, View} from 'react-native';
-import {Card, Input, Button} from 'react-native-elements';
+import {Card, Input} from 'react-native-elements';
 
-import DatePicker from '../../components/date-time-picker/date-time-picker';
-import PriorityPicker from '../../components/priority-picker/priority-picker';
+import {CreateTaskStyle} from './create-task.style';
 
-const CreateTask = () => {
+import {DatePicker} from '../../components/date-time-picker/';
+import {PriorityPicker} from '../../components/priority-picker/';
+
+export const CreateTask = () => {
   return (
-    <View style={styles.container}>
+    <CreateTaskStyle.Container>
       <Card title="CREATE TASK">
         <Input placeholder="Add task..." />
         <Input placeholder="Author..." />
         <DatePicker />
         <PriorityPicker />
-        <Button style={styles.addTaskBtn} title="SAVE" />
+        <CreateTaskStyle.AddTaskBtn title="SAVE" />
       </Card>
-    </View>
+    </CreateTaskStyle.Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  addTaskBtn: {
-    marginTop: 10,
-  },
-});
-
-export default CreateTask;

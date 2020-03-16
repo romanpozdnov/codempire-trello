@@ -1,8 +1,10 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View} from 'react-native';
 import {Card, ListItem} from 'react-native-elements';
 
-import NavBar from '../../components/nav-bar/nav-bar';
+import {ItemListStyle} from './item-list.style';
+
+import {NavBar} from '../../components/nav-bar/';
 import {IconButton} from '../../components/icon-button';
 
 const list = [
@@ -32,9 +34,17 @@ const list = [
   },
 ];
 
-const ItemList = ({navigation}) => {
+interface IItemListProps {
+  navigation: {
+    navigate: (route: string) => void;
+  };
+}
+
+export const ItemList: React.FC<IItemListProps> = props => {
+  const {navigation} = props;
+
   return (
-    <View style={styles.list}>
+    <ItemListStyle.List>
       <NavBar />
       <Card>
         <View>
@@ -50,14 +60,6 @@ const ItemList = ({navigation}) => {
         </View>
       </Card>
       <IconButton navigation={navigation} />
-    </View>
+    </ItemListStyle.List>
   );
 };
-
-const styles = StyleSheet.create({
-  list: {
-    flex: 1,
-  },
-});
-
-export default ItemList;
