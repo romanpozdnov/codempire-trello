@@ -1,10 +1,16 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {Icon} from 'react-native-elements';
+import { View, StyleSheet } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 import * as ROUTES from '../../constants/routes';
 
-const CreateButton = ({navigation}) => {
+interface ICreateButtonProps {
+  navigation: any,
+}
+
+const CreateButton: React.FC<ICreateButtonProps> = (props) => {
+  const { navigation } = props;
+
   return (
     <View style={styles.addTaskIcon}>
       <Icon
