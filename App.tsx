@@ -10,11 +10,14 @@
 
 import 'react-native-gesture-handler';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  NavigationContainerProps,
+} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import ItemList from './src/screens/item-list/item-list';
-import CreateTask from './src/screens/create-task/create-task';
+import {Board} from './src/screens/board/';
+import {CreateTask} from './src/screens/create-task/';
 
 import * as ROUTES from './src/constants/routes';
 
@@ -24,7 +27,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="ItemList">
-        <Stack.Screen name={ROUTES.ITEMLIST} component={ItemList} />
+        <Stack.Screen name={ROUTES.ITEMLIST} component={Board} />
         <Stack.Screen name={ROUTES.CREATETASK} component={CreateTask} />
       </Stack.Navigator>
     </NavigationContainer>

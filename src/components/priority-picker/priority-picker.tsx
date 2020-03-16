@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Picker} from 'react-native';
 
-const PriorityPicker = () => {
+export const PriorityPicker = () => {
   const [priority, setPriority] = useState({
     priority: '',
   });
@@ -19,5 +19,3 @@ const PriorityPicker = () => {
     </View>
   );
 };
-
-export default PriorityPicker;

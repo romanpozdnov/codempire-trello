@@ -1,23 +1,14 @@
 import React from 'react';
-import {Button, View, StyleSheet} from 'react-native';
+import {Button, Text} from 'react-native';
 
-const NavBar = () => {
+import {IconButtonStyle} from './nav-bar.style';
+
+export const NavBar = () => {
   return (
-    <View style={styles.navContainer}>
+    <IconButtonStyle.NavContainer>
       <Button title="BACK" />
+      <Text>Header status</Text>
       <Button title="NEXT" />
-    </View>
+    </IconButtonStyle.NavContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  navContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginLeft: 8,
-    marginRight: 8,
-  },
-});
-
-export default NavBar;
