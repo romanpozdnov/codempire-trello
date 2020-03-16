@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const ItemListStyle = {
+export const BoardStyle = {
   List: styled.View`
     flex: 1;
   `,

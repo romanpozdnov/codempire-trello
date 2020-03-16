@@ -14,6 +14,7 @@ interface IIconButtonProps {
 export const IconButton: React.FC<IIconButtonProps> = props => {
   const {navigation} = props;
 
+  // TODO: use TouchableOpacity
   return (
     <IconButtonStyle.CreateTaskIcon>
       <Icon
@@ -21,6 +22,7 @@ export const IconButton: React.FC<IIconButtonProps> = props => {
         name="ios-add"
         type="ionicon"
         color="#517fa4"
+        // TODO: pass callback
         onPress={() => navigation.navigate(ROUTES.CREATETASK)}
       />
     </IconButtonStyle.CreateTaskIcon>

@@ -1,2 +1,2 @@
-export const ITEMLIST = 'Item list';
+export const ITEMLIST = 'Board';
 export const CREATETASK = 'Create task';

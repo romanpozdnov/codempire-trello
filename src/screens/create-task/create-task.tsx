@@ -8,6 +8,7 @@ import {DatePicker} from '../../components/date-time-picker/';
 import {PriorityPicker} from '../../components/priority-picker/';
 
 export const CreateTask = () => {
+  // TODO: create hook and pass callbacks to child components
   return (
     <CreateTaskStyle.Container>
       <Card title="CREATE TASK">
