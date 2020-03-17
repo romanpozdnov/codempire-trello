@@ -1,14 +1,16 @@
 import React from 'react';
-import {Button, Text} from 'react-native';
+import { Button, Text } from 'react-native';
 
-import {IconButtonStyle} from './nav-bar.style';
+import { IconButtonStyle } from './nav-bar.style';
 
-export const NavBar = () => {
+export const NavBar = (props) => {
+  const { prevHandler, headerStatus, nextHandler } = props;
+
   return (
     <IconButtonStyle.NavContainer>
-      <Button title="BACK" />
-      <Text>Header status</Text>
-      <Button title="NEXT" />
+      <Button title="BACK" onPress={prevHandler} />
+      <Text>{headerStatus}</Text>
+      <Button title="NEXT" onPress={nextHandler} />
     </IconButtonStyle.NavContainer>
   );
 };
