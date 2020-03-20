@@ -8,15 +8,14 @@ import { NavBar } from '../../components/nav-bar/';
 import { TasksList } from '../../components/tasks-list';
 import { IconButton } from '../../components/icon-button';
 
+import { allStatuses } from '../../constants/statuses';
+
 import {
   NavigationScreenProp,
   NavigationState,
   NavigationParams,
 } from 'react-navigation';
 
-
-
-// TODO: add status to everyone
 const tasks = [
   {
     id: 1,
@@ -45,56 +44,26 @@ const tasks = [
   }
 ];
 
-const allStatuses = [
-  {
-    id: 1,
-    status: "backlog",
-    displayedName: "Back Log",
-    order: 0
-  },
-  {
-    id: 2,
-    status: "todo",
-    displayedName: "To Do",
-    order: 1
-  },
-  {
-    id: 3,
-    status: "inProgress",
-    displayedName: "In Progress",
-    order: 2
-  },
-  {
-    id: 4,
-    status: "inReview",
-    displayedName: "In Review",
-    order: 3
-  },
-  {
-    id: 4,
-    status: "done",
-    displayedName: "Done",
-    order: 4
-  }
-];
-
 const startFrom = "todo";
 interface IItemListProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
 }
 
-// TODO: rename to Board + board.tsx
 export const Board: React.FC<IItemListProps> = props => {
   const { navigation } = props;
-  const [selected, prev, next] = useStatusFilter(allStatuses, startFrom);
-  const displayedTasks = tasks.filter(task => task.status === selected.status);
+  const [selected, prev, next, isPrevDisabled, isNextDisabled] = useStatusFilter(allStatuses, startFrom);
 
-  // TODO: create hook with changing status;
+  const displayedTasks = tasks.filter(task => task.status === selected.status);
 
   return (
     <BoardStyle.List>
-      {/* TODO: pass props with changing status */}
-      <NavBar prevHandler={prev} headerStatus={selected.displayedName} nextHandler={next} />
+      <NavBar
+        prevHandler={prev}
+        headerStatus={selected.displayedName}
+        nextHandler={next}
+        isPrevDisabled={isPrevDisabled}
+        isNextDisabled={isNextDisabled}
+      />
       <Card>
         <TasksList tasks={displayedTasks} />
       </Card>

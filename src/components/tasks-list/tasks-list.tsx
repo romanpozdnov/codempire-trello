@@ -2,8 +2,11 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
+interface ITasksList {
+  tasks: [],
+}
 
-export const TasksList = (props) => {
+export const TasksList: React.FC<ITasksList> = (props) => {
   const { tasks } = props;
 
   if (!tasks.length) {

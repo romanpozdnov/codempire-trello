@@ -1,20 +1,20 @@
-import React, {useState} from 'react';
-import {View, Picker} from 'react-native';
+import React, { useState } from 'react';
+import { View, Picker } from 'react-native';
+
+import { priorities } from '../../constants/priorities';
 
 export const PriorityPicker = () => {
-  const [priority, setPriority] = useState({
-    priority: '',
-  });
+  const [priority, setPriority] = useState('');
 
   return (
     <View>
       <Picker
-        selectedValue={priority.priority}
-        onValueChange={(itemValue, itemIndex) =>
-          setPriority({priority: itemValue})
-        }>
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
+        selectedValue={priority}
+        onValueChange={(priority) =>
+          setPriority(priority)
+        }
+      >
+        {priorities.map((priority) => <Picker.Item label={priority.label} value={priority.value} key={priority.value} />)}
       </Picker>
     </View>
   );
