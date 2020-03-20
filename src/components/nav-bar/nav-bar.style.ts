@@ -5,7 +5,7 @@ export const IconButtonStyle = {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-left: 8;
-    margin-right: 8;
+    margin-left: 8px;
+    margin-right: 8px;
   `,
 };

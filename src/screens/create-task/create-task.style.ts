@@ -5,6 +5,9 @@ export const CreateTaskStyle = {
     flex: 1;
   `,
   AddTaskBtn: styled.Button`
-    margin-top: 10;
+    margin-top: 10px;
+  `,
+  FormField: styled.View`
+    margin-bottom: 15px;
   `,
 };

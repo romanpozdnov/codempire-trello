@@ -1,22 +1,56 @@
 import React from 'react';
 
-import {Card, Input} from 'react-native-elements';
+import { Card } from 'react-native-elements';
 
-import {CreateTaskStyle} from './create-task.style';
+import { useForm } from './create-task.state';
+import { validate } from './validation-rules';
+import { CreateTaskStyle } from './create-task.style';
 
-import {DatePicker} from '../../components/date-time-picker/';
-import {PriorityPicker} from '../../components/priority-picker/';
+import { InputField } from '../../components/input-field/';
+import { DatePicker } from '../../components/date-time-picker/';
+import { PriorityPicker } from '../../components/priority-picker/';
+
+const test = (values) => {
+  console.log('values', values);
+}
 
 export const CreateTask = () => {
-  // TODO: create hook and pass callbacks to child components
+  const { handleSubmit, handleValueChange, values, errors } = useForm(test, validate);
+  console.log('errors', errors);
+
   return (
     <CreateTaskStyle.Container>
       <Card title="CREATE TASK">
-        <Input placeholder="Add task..." />
-        <Input placeholder="Author..." />
-        <DatePicker />
-        <PriorityPicker />
-        <CreateTaskStyle.AddTaskBtn title="SAVE" />
+        <CreateTaskStyle.FormField>
+          <InputField
+            label="Task"
+            name="task"
+            value={values.task}
+            handleValueChange={handleValueChange}
+            errors={errors.task}
+          />
+        </CreateTaskStyle.FormField>
+        <CreateTaskStyle.FormField>
+          <InputField
+            label="Author"
+            name="author"
+            value={values.author}
+            handleValueChange={handleValueChange}
+            errors={errors.author}
+          />
+        </CreateTaskStyle.FormField>
+        <CreateTaskStyle.FormField>
+          <DatePicker
+            label="Date"
+            date={values.date}
+            onChange={handleValueChange}
+            leftIcon={{ type: 'font-awesome', name: 'calendar', containerStyle: { marginRight: 15 } }}
+          />
+        </CreateTaskStyle.FormField>
+        <CreateTaskStyle.FormField>
+          <PriorityPicker />
+        </CreateTaskStyle.FormField>
+        <CreateTaskStyle.AddTaskBtn title="SAVE" onPress={handleSubmit} />
       </Card>
     </CreateTaskStyle.Container>
   );
