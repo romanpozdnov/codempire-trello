@@ -7,17 +7,31 @@ export const useStatusFilter = (allStatuses = [], initialStatus) => {
     return ordered.findIndex(({ status }) => status === initialStatus);
   });
 
+  const [isPrevDisabled, setPrevDisabled] = useState(false);
+  const [isNextDisabled, setNextDisabled] = useState(false);
+
   const getPrev = () => {
-    const isStart = currentIndex === 0;
-    const index = isStart ? ordered.length - 1 : currentIndex - 1;
+    const index = currentIndex - 1;
     setCurrentIndex(index);
+    setDisabled(index);
   };
 
   const getNext = () => {
-    const isEnd = currentIndex === ordered.length - 1;
-    const index = isEnd ? 0 : currentIndex + 1;
+    const index = currentIndex + 1;
     setCurrentIndex(index);
+    setDisabled(index);
   };
 
-  return [ordered[currentIndex], getPrev, getNext];
+  const setDisabled = index => {
+    setPrevDisabled(index === 0);
+    setNextDisabled(index === ordered.length - 1);
+  };
+
+  return [
+    ordered[currentIndex],
+    getPrev,
+    getNext,
+    isPrevDisabled,
+    isNextDisabled
+  ];
 };
