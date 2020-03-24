@@ -4,17 +4,20 @@ import { View, Picker } from 'react-native';
 import { priorities } from '../../constants/priorities';
 
 export const PriorityPicker = () => {
-  const [priority, setPriority] = useState('');
+  const [selectedPriority, setPriority] = useState('');
 
   return (
     <View>
       <Picker
-        selectedValue={priority}
-        onValueChange={(priority) =>
-          setPriority(priority)
-        }
-      >
-        {priorities.map((priority) => <Picker.Item label={priority.label} value={priority.value} key={priority.value} />)}
+        selectedValue={selectedPriority}
+        onValueChange={value => setPriority(value)}>
+        {priorities.map(priority => (
+          <Picker.Item
+            label={priority.label}
+            value={priority.value}
+            key={priority.value}
+          />
+        ))}
       </Picker>
     </View>
   );

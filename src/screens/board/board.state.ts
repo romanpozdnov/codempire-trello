@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
+// TODO: single useState
 export const useStatusFilter = (allStatuses = [], initialStatus) => {
   const ordered = allStatuses.sort((a, b) => a.order - b.order);
 
@@ -32,6 +33,6 @@ export const useStatusFilter = (allStatuses = [], initialStatus) => {
     getPrev,
     getNext,
     isPrevDisabled,
-    isNextDisabled
+    isNextDisabled,
   ];
 };

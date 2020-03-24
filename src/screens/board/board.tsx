@@ -10,6 +10,8 @@ import { IconButton } from '../../components/icon-button';
 
 import { allStatuses } from '../../constants/statuses';
 
+import * as ROUTES from '../../constants/routes';
+
 import {
   NavigationScreenProp,
   NavigationState,
@@ -19,41 +21,49 @@ import {
 const tasks = [
   {
     id: 1,
-    status: "inReview",
-    title: "Ya v dushe ne eby"
+    status: 'inReview',
+    title: 'Ya v dushe ne eby',
   },
   {
     id: 2,
-    status: "inReview",
-    title: "Ya v dushe ne eby!"
+    status: 'inReview',
+    title: 'Ya v dushe ne eby!',
   },
   {
     id: 3,
-    status: "done",
-    title: "qwexdwaxd"
+    status: 'done',
+    title: 'qwexdwaxd',
   },
   {
     id: 4,
-    status: "todo",
-    title: "Yasdasdasdsd"
+    status: 'todo',
+    title: 'Yasdasdasdsd',
   },
   {
     id: 5,
-    status: "done",
-    title: "Ya aDdd"
-  }
+    status: 'done',
+    title: 'Ya aDdd',
+  },
 ];
 
-const startFrom = "todo";
+const startFrom = 'todo';
 interface IItemListProps {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>;
 }
 
 export const Board: React.FC<IItemListProps> = props => {
   const { navigation } = props;
-  const [selected, prev, next, isPrevDisabled, isNextDisabled] = useStatusFilter(allStatuses, startFrom);
+  const [
+    selected,
+    prev,
+    next,
+    isPrevDisabled,
+    isNextDisabled,
+  ] = useStatusFilter(allStatuses, startFrom);
 
   const displayedTasks = tasks.filter(task => task.status === selected.status);
+
+  const navigateToCreateTask = () => navigation.navigate(ROUTES.CREATETASK);
 
   return (
     <BoardStyle.List>
@@ -67,7 +77,7 @@ export const Board: React.FC<IItemListProps> = props => {
       <Card>
         <TasksList tasks={displayedTasks} />
       </Card>
-      <IconButton navigation={navigation} />
+      <IconButton handleIconButton={navigateToCreateTask} />
     </BoardStyle.List>
   );
 };

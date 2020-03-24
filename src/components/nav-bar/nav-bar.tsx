@@ -4,13 +4,19 @@ import { Button, Text } from 'react-native';
 import { IconButtonStyle } from './nav-bar.style';
 
 interface INavBar {
-  prevHandler: () => void,
-  headerStatus: string,
-  nextHandler: () => void,
+  prevHandler: () => void;
+  headerStatus: string;
+  nextHandler: () => void;
 }
 
-export const NavBar: React.FC<INavBar> = (props) => {
-  const { prevHandler, headerStatus, nextHandler, isPrevDisabled, isNextDisabled } = props;
+export const NavBar: React.FC<INavBar> = props => {
+  const {
+    prevHandler,
+    headerStatus,
+    nextHandler,
+    isPrevDisabled,
+    isNextDisabled,
+  } = props;
 
   return (
     <IconButtonStyle.NavContainer>
