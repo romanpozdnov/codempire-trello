@@ -1,38 +1,58 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+
+interface IStatusFilterState {
+  currentIndex: any;
+  isPrevDisabled: boolean;
+  isNextDisabled: boolean;
+}
 
 // TODO: single useState
-export const useStatusFilter = (allStatuses = [], initialStatus) => {
+export const useStatusFilter = (allStatuses: [], initialStatus: string) => {
   const ordered = allStatuses.sort((a, b) => a.order - b.order);
 
-  const [currentIndex, setCurrentIndex] = useState(() => {
-    return ordered.findIndex(({ status }) => status === initialStatus);
-  });
+  const findStartIndex = () =>
+    ordered.findIndex(({ status }) => status === initialStatus);
+  const startIndex = findStartIndex();
 
-  const [isPrevDisabled, setPrevDisabled] = useState(false);
-  const [isNextDisabled, setNextDisabled] = useState(false);
+  const initialValues = {
+    currentIndex: startIndex,
+    isPrevDisabled: false,
+    isNextDisabled: false,
+  };
+
+  const [state, setState] = useState<IStatusFilterState>(initialValues);
 
   const getPrev = () => {
-    const index = currentIndex - 1;
-    setCurrentIndex(index);
+    const index = state.currentIndex - 1;
+    setState((prevState: IStatusFilterState) => ({
+      ...prevState,
+      currentIndex: index,
+    }));
     setDisabled(index);
   };
 
   const getNext = () => {
-    const index = currentIndex + 1;
-    setCurrentIndex(index);
+    const index = state.currentIndex + 1;
+    setState((prevState: IStatusFilterState) => ({
+      ...prevState,
+      currentIndex: index,
+    }));
     setDisabled(index);
   };
 
-  const setDisabled = index => {
-    setPrevDisabled(index === 0);
-    setNextDisabled(index === ordered.length - 1);
+  const setDisabled = (index: number) => {
+    setState((prevState: IStatusFilterState) => ({
+      ...prevState,
+      isPrevDisabled: index === 0,
+      isNextDisabled: index === ordered.length - 1,
+    }));
   };
 
   return [
-    ordered[currentIndex],
+    ordered[state.currentIndex],
     getPrev,
     getNext,
-    isPrevDisabled,
-    isNextDisabled,
+    { isPrevDisabled: state.isPrevDisabled },
+    { isNextDisabled: state.isNextDisabled },
   ];
 };

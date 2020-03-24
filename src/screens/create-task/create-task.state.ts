@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { ITask, TFormErrors } from '../../constants/types';
 
@@ -22,25 +22,26 @@ export const useForm = (
   validate: (v: ITask) => TFormErrors,
 ) => {
   const [state, setState] = useState<IFormState>(initialState);
-  const [values, setValues] = useState<ITask>(initialState.task);
-  const [errors, setErrors] = useState<TFormErrors>({});
 
   const handleSubmit = () => {
-    const newErrors = validate(values);
+    const newErrors = validate(state.task);
     if (!Object.keys(newErrors).length) {
-      onSubmit(values);
+      onSubmit(state.task);
     }
-    setErrors(newErrors);
+    setState(prevState => ({ ...prevState, errors: newErrors }));
   };
 
-  const handleValueChange = (name, value) => {
-    setValues(values => ({ ...values, [name]: value }));
+  const handleValueChange = (name: string, value: ITask) => {
+    setState(prevState => ({
+      ...prevState,
+      task: { ...prevState.task, [name]: value },
+    }));
   };
 
   return {
     handleSubmit,
     handleValueChange,
-    values,
-    errors,
+    values: state.task,
+    errors: state.errors,
   };
 };
