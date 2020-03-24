@@ -1,24 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-export const useForm = (onSubmit, validate) => {
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+import { ITask, TFormErrors } from '../../constants/types';
 
-  useEffect(() => {
-    if (!Object.keys(errors).length && isSubmitting) {
-      onSubmit(values);
-    }
-  }, [errors]);
+const initialState = {
+  task: {
+    task: '',
+    user: '',
+    date: '',
+    priority: '',
+  },
+  errors: {},
+};
+
+interface IFormState {
+  task: ITask;
+  errors: TFormErrors;
+}
+
+export const useForm = (
+  onSubmit: (v: ITask) => void,
+  validate: (v: ITask) => TFormErrors,
+) => {
+  const [state, setState] = useState<IFormState>(initialState);
+  const [values, setValues] = useState<ITask>(initialState.task);
+  const [errors, setErrors] = useState<TFormErrors>({});
 
   const handleSubmit = () => {
-    setErrors(validate(values));
-    setIsSubmitting(true);
-  }
+    const newErrors = validate(values);
+    if (!Object.keys(newErrors).length) {
+      onSubmit(values);
+    }
+    setErrors(newErrors);
+  };
 
   const handleValueChange = (name, value) => {
     setValues(values => ({ ...values, [name]: value }));
-  }
+  };
 
   return {
     handleSubmit,
@@ -26,4 +43,4 @@ export const useForm = (onSubmit, validate) => {
     values,
     errors,
   };
-}
+};

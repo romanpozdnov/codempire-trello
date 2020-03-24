@@ -10,12 +10,15 @@ import { InputField } from '../../components/input-field/';
 import { DatePicker } from '../../components/date-time-picker/';
 import { PriorityPicker } from '../../components/priority-picker/';
 
-const test = (values) => {
+const test = values => {
   console.log('values', values);
-}
+};
 
 export const CreateTask = () => {
-  const { handleSubmit, handleValueChange, values, errors } = useForm(test, validate);
+  const { handleSubmit, handleValueChange, values, errors } = useForm(
+    test,
+    validate,
+  );
   console.log('errors', errors);
 
   return (
@@ -27,6 +30,7 @@ export const CreateTask = () => {
             name="task"
             value={values.task}
             handleValueChange={handleValueChange}
+            leftIcon="tasks"
             errors={errors.task}
           />
         </CreateTaskStyle.FormField>
@@ -36,6 +40,7 @@ export const CreateTask = () => {
             name="author"
             value={values.author}
             handleValueChange={handleValueChange}
+            leftIcon="user"
             errors={errors.author}
           />
         </CreateTaskStyle.FormField>
@@ -44,7 +49,11 @@ export const CreateTask = () => {
             label="Date"
             date={values.date}
             onChange={handleValueChange}
-            leftIcon={{ type: 'font-awesome', name: 'calendar', containerStyle: { marginRight: 15 } }}
+            leftIcon={{
+              type: 'font-awesome',
+              name: 'calendar',
+              containerStyle: { marginRight: 15 },
+            }}
           />
         </CreateTaskStyle.FormField>
         <CreateTaskStyle.FormField>

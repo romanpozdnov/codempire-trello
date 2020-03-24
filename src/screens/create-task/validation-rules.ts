@@ -1,4 +1,4 @@
-export const validate = (values) => {
+export const validate = values => {
   let errors = {};
 
   if (!values.task) {
@@ -7,10 +7,6 @@ export const validate = (values) => {
 
   if (!values.author) {
     errors.author = 'Author is required';
-  }
-
-  if (!values.date) {
-    errors.date = 'Date is required';
   }
 
   return errors;
