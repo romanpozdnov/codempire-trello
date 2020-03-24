@@ -57,8 +57,8 @@ export const Board: React.FC<IItemListProps> = props => {
     selected,
     prev,
     next,
-    isPrevDisabled,
-    isNextDisabled,
+    { isPrevDisabled },
+    { isNextDisabled },
   ] = useStatusFilter(allStatuses, startFrom);
 
   const displayedTasks = tasks.filter(task => task.status === selected.status);
