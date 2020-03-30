@@ -22,12 +22,12 @@ const tasks = [
   {
     id: 1,
     status: 'inReview',
-    title: 'Ya v dushe ne eby',
+    title: 'Some text',
   },
   {
     id: 2,
     status: 'inReview',
-    title: 'Ya v dushe ne eby!',
+    title: 'Some text some text!',
   },
   {
     id: 3,
