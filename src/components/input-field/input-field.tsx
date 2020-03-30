@@ -1,14 +1,18 @@
 import React from 'react';
 import { Input } from 'react-native-elements';
 
-export const InputField = ({
-  label,
-  name,
-  value,
-  handleValueChange,
-  leftIcon,
-  errors,
-}) => {
+interface IInputFieldProps {
+  label?: string;
+  name?: string;
+  value?: string;
+  handleValueChange?: (name?: string, text?: string) => void;
+  leftIconName?: string;
+  errors?: string;
+}
+
+export const InputField: React.FC<IInputFieldProps> = props => {
+  const { label, name, value, handleValueChange, leftIconName, errors } = props;
+
   return (
     <Input
       label={label}
@@ -16,7 +20,7 @@ export const InputField = ({
       onChangeText={text => handleValueChange(name, text)}
       leftIcon={{
         type: 'font-awesome',
-        name: leftIcon,
+        name: leftIconName,
         containerStyle: { marginRight: 15 },
       }}
       errorMessage={errors ? errors : undefined}

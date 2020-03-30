@@ -10,16 +10,13 @@ import { InputField } from '../../components/input-field/';
 import { DatePicker } from '../../components/date-time-picker/';
 import { PriorityPicker } from '../../components/priority-picker/';
 
-const test = values => {
-  console.log('values', values);
-};
+const saveTask = values => { };
 
 export const CreateTask = () => {
   const { handleSubmit, handleValueChange, values, errors } = useForm(
-    test,
+    saveTask,
     validate,
   );
-  console.log('errors', errors);
 
   return (
     <CreateTaskStyle.Container>
@@ -30,7 +27,7 @@ export const CreateTask = () => {
             name="task"
             value={values.task}
             handleValueChange={handleValueChange}
-            leftIcon="tasks"
+            leftIconName="tasks"
             errors={errors.task}
           />
         </CreateTaskStyle.FormField>
@@ -40,7 +37,7 @@ export const CreateTask = () => {
             name="author"
             value={values.author}
             handleValueChange={handleValueChange}
-            leftIcon="user"
+            leftIconName="user"
             errors={errors.author}
           />
         </CreateTaskStyle.FormField>
@@ -54,10 +51,17 @@ export const CreateTask = () => {
               name: 'calendar',
               containerStyle: { marginRight: 15 },
             }}
+            errors={errors.date}
           />
         </CreateTaskStyle.FormField>
         <CreateTaskStyle.FormField>
-          <PriorityPicker />
+          <PriorityPicker
+            label="Priority"
+            name="priority"
+            value={values.priority}
+            handleValueChange={handleValueChange}
+            errors={errors.priority}
+          />
         </CreateTaskStyle.FormField>
         <CreateTaskStyle.AddTaskBtn title="SAVE" onPress={handleSubmit} />
       </Card>

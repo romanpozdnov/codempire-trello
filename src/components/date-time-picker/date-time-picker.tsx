@@ -4,6 +4,8 @@ import { View, TouchableWithoutFeedback } from 'react-native';
 import { Input, IconNode } from 'react-native-elements';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
+import { DatePickerStyle } from './date-time-picker.style';
+
 import { TDate } from '../../constants/types';
 
 interface IDatePickerProps {
@@ -11,10 +13,11 @@ interface IDatePickerProps {
   date: TDate;
   leftIcon: IconNode;
   onChange: (name: string, selectedDate: TDate) => void;
+  errors: string;
 }
 
 export const DatePicker: React.FC<IDatePickerProps> = props => {
-  const { label, date, leftIcon, onChange } = props;
+  const { label, date, leftIcon, onChange, errors } = props;
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -50,6 +53,13 @@ export const DatePicker: React.FC<IDatePickerProps> = props => {
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
       />
+      {errors && (
+        <DatePickerStyle.ErrorMessageContainer>
+          <DatePickerStyle.ErrorMessage>
+            Date is required
+          </DatePickerStyle.ErrorMessage>
+        </DatePickerStyle.ErrorMessageContainer>
+      )}
     </View>
   );
 };

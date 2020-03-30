@@ -3,13 +3,15 @@ import { Button, Text } from 'react-native';
 
 import { IconButtonStyle } from './nav-bar.style';
 
-interface INavBar {
+interface INavBarProps {
   prevHandler: () => void;
   headerStatus: string;
   nextHandler: () => void;
+  isPrevDisabled?: boolean;
+  isNextDisabled?: boolean;
 }
 
-export const NavBar: React.FC<INavBar> = props => {
+export const NavBar: React.FC<INavBarProps> = props => {
   const {
     prevHandler,
     headerStatus,
