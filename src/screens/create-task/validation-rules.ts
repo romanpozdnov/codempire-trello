@@ -9,5 +9,13 @@ export const validate = values => {
     errors.author = 'Author is required';
   }
 
+  if (!values.date) {
+    errors.date = 'Date is required';
+  }
+
+  if (!values.priority) {
+    errors.priority = 'Priority is required';
+  }
+
   return errors;
 };

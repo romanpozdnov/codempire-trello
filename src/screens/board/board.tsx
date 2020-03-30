@@ -53,6 +53,7 @@ interface IItemListProps {
 
 export const Board: React.FC<IItemListProps> = props => {
   const { navigation } = props;
+
   const [
     selected,
     prev,
