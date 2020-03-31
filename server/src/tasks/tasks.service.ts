@@ -23,12 +23,6 @@ export class TasksService {
 
   async getTasks() {
     const tasks = await this.taskModel.find().exec();
-    return tasks.map(task => ({
-      id: task.id,
-      title: task.title,
-      author: task.author,
-      date: task.date,
-      status: task.status,
-    }));
+    return tasks;
   }
 }
