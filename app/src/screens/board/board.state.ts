@@ -6,7 +6,6 @@ interface IStatusFilterState {
   isNextDisabled: boolean;
 }
 
-// TODO: single useState
 export const useStatusFilter = (allStatuses: [], initialStatus: string) => {
   const ordered = allStatuses.sort((a, b) => a.order - b.order);
 
