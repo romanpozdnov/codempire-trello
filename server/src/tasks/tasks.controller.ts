@@ -3,6 +3,8 @@ import {
   Post,
   Body,
   Get,
+  Param,
+  Patch,
 } from '@nestjs/common';
 
 import { TasksService } from './tasks.service';
@@ -31,5 +33,22 @@ export class TasksController {
   async getAllTasks() {
     const tasks = await this.tasksService.getTasks();
     return tasks;
+  }
+
+  @Get(':id')
+  getTask(@Param('id') taskId: string) {
+    return this.tasksService.getSingleTask(taskId);
+  }
+
+  @Patch(':id')
+  async updateTask(
+    @Param('id') taskId: string,
+    @Body('title') taskTitle: string,
+    @Body('author') taskAuthor: string,
+    @Body('date') taskDate: string,
+    @Body('status') taskStatus: string,
+  ) {
+    await this.tasksService.updateTask(taskId, taskTitle, taskAuthor, taskDate, taskStatus);
+    return null;
   }
 }
