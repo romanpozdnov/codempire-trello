@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 
 import { TasksService } from './tasks.service';
+import { TaskDto } from './task.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -15,40 +16,26 @@ export class TasksController {
 
   @Post()
   async addTask(
-    @Body('title') taskTitle: string,
-    @Body('author') taskAuthor: string,
-    @Body('date') taskDate: string,
-    @Body('status') taskStatus: string,
+    @Body() newTask: TaskDto
   ) {
-    const generatedId = await this.tasksService.insertTask(
-      taskTitle,
-      taskAuthor,
-      taskDate,
-      taskStatus,
-    );
-    return { id: generatedId };
+    return await this.tasksService.createTask(newTask);
   }
 
   @Get()
   async getAllTasks() {
-    const tasks = await this.tasksService.getTasks();
-    return tasks;
+    return await this.tasksService.getTasks();
   }
 
   @Get(':id')
-  getTask(@Param('id') taskId: string) {
-    return this.tasksService.getSingleTask(taskId);
+  getTask(@Param('id') _id: string) {
+    return this.tasksService.getSingleTask(_id);
   }
 
   @Patch(':id')
   async updateTask(
-    @Param('id') taskId: string,
-    @Body('title') taskTitle: string,
-    @Body('author') taskAuthor: string,
-    @Body('date') taskDate: string,
-    @Body('status') taskStatus: string,
-  ) {
-    await this.tasksService.updateTask(taskId, taskTitle, taskAuthor, taskDate, taskStatus);
+    @Param('id') _id: string,
+    @Body() updateTask: TaskDto) {
+    await this.tasksService.updateTask(_id, updateTask);
     return null;
   }
 }

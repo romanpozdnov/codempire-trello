@@ -9,7 +9,11 @@ import { TRELLO_APP_DATABASE_URL } from '../database.connection';
 @Module({
   imports: [
     TasksModule,
-    MongooseModule.forRoot(TRELLO_APP_DATABASE_URL)],
+    MongooseModule.forRoot(TRELLO_APP_DATABASE_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false
+    })],
   controllers: [],
   providers: [AppService],
 })
