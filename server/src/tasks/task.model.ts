@@ -5,6 +5,7 @@ export const TaskSchema = new mongoose.Schema({
   author: { type: String, required: true },
   date: { type: String, required: true },
   status: { type: String, required: true },
+  priority: { type: String, required: true },
 });
 
 export interface Task extends mongoose.Document {
@@ -13,4 +14,5 @@ export interface Task extends mongoose.Document {
   author: string;
   date: string;
   status: string;
+  priority: string;
 }

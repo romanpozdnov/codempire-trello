@@ -3,9 +3,13 @@ import {
   Post,
   Body,
   Get,
+  Param,
+  Patch,
+  Delete,
 } from '@nestjs/common';
 
 import { TasksService } from './tasks.service';
+import { TaskDto } from './task.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -13,23 +17,32 @@ export class TasksController {
 
   @Post()
   async addTask(
-    @Body('title') taskTitle: string,
-    @Body('author') taskAuthor: string,
-    @Body('date') taskDate: string,
-    @Body('status') taskStatus: string,
+    @Body() newTask: TaskDto
   ) {
-    const generatedId = await this.tasksService.insertTask(
-      taskTitle,
-      taskAuthor,
-      taskDate,
-      taskStatus,
-    );
-    return { id: generatedId };
+    return await this.tasksService.createTask(newTask);
   }
 
   @Get()
   async getAllTasks() {
-    const tasks = await this.tasksService.getTasks();
-    return tasks;
+    return await this.tasksService.getTasks();
+  }
+
+  @Get(':id')
+  getTask(@Param('id') _id: string) {
+    return this.tasksService.getSingleTask(_id);
+  }
+
+  @Patch(':id')
+  async updateTask(
+    @Param('id') _id: string,
+    @Body() updateTask: TaskDto) {
+    await this.tasksService.updateTask(_id, updateTask);
+    return null;
+  }
+
+  @Delete("delete/:id")
+  async removeById(@Param("id") _id: string) {
+    await this.tasksService.removeById(_id);
+    return null;
   }
 }
