@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { format } from 'date-fns';
-import { View, TouchableWithoutFeedback } from 'react-native';
-import { Input, IconNode } from 'react-native-elements';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import React, { useState } from "react";
+import { format } from "date-fns";
+import { View, TouchableWithoutFeedback } from "react-native";
+import { Input, IconNode } from "react-native-elements";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-import { DatePickerStyle } from './date-time-picker.style';
+import { DatePickerStyle } from "./date-time-picker.style";
 
-import { TDate } from '../../constants/types';
+import { TDate } from "../../constants/types";
 
 interface IDatePickerProps {
   label: string;
@@ -16,7 +16,7 @@ interface IDatePickerProps {
   errors: string;
 }
 
-export const DatePicker: React.FC<IDatePickerProps> = props => {
+export const DatePicker: React.FC<IDatePickerProps> = (props) => {
   const { label, date, leftIcon, onChange, errors } = props;
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -31,7 +31,7 @@ export const DatePicker: React.FC<IDatePickerProps> = props => {
 
   const handleConfirm = (selectedDate: TDate) => {
     hideDatePicker();
-    onChange('date', selectedDate);
+    onChange("date", selectedDate);
   };
 
   return (
@@ -42,7 +42,7 @@ export const DatePicker: React.FC<IDatePickerProps> = props => {
             <Input
               label={label}
               leftIcon={leftIcon}
-              value={date ? format(date, 'MMMM d, yyyy H:mma') : ''}
+              value={date ? format(date, "MMMM d, yyyy H:mma") : ""}
             />
           </View>
         </View>

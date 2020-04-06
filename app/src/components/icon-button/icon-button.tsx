@@ -1,12 +1,12 @@
-import React from 'react';
-import { Icon } from 'react-native-elements';
+import React from "react";
+import { Icon } from "react-native-elements";
 
-import { IconButtonStyle } from './icon-button.style';
+import { IconButtonStyle } from "./icon-button.style";
 interface IIconButtonProps {
   handleIconButton: () => void;
 }
 
-export const IconButton: React.FC<IIconButtonProps> = props => {
+export const IconButton: React.FC<IIconButtonProps> = (props) => {
   const { handleIconButton } = props;
 
   return (

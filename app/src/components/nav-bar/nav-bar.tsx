@@ -1,7 +1,7 @@
-import React from 'react';
-import { Button, Text } from 'react-native';
+import React from "react";
+import { Button, Text } from "react-native";
 
-import { IconButtonStyle } from './nav-bar.style';
+import { IconButtonStyle } from "./nav-bar.style";
 
 interface INavBarProps {
   prevHandler: () => void;
@@ -11,7 +11,7 @@ interface INavBarProps {
   isNextDisabled?: boolean;
 }
 
-export const NavBar: React.FC<INavBarProps> = props => {
+export const NavBar: React.FC<INavBarProps> = (props) => {
   const {
     prevHandler,
     headerStatus,

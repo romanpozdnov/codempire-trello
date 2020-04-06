@@ -1,58 +1,42 @@
-import React from 'react';
-import { Card } from 'react-native-elements';
+import React, { useState, useEffect } from "react";
+import { Card } from "react-native-elements";
 
-import { useStatusFilter } from './board.state';
-import { BoardStyle } from './board.style';
+import { useStatusFilter } from "./board.state";
+import { BoardStyle } from "./board.style";
 
-import { NavBar } from '../../components/nav-bar/';
-import { TasksList } from '../../components/tasks-list';
-import { IconButton } from '../../components/icon-button';
+import { NavBar } from "../../components/nav-bar/";
+import { TasksList } from "../../components/tasks-list";
+import { IconButton } from "../../components/icon-button";
 
-import { allStatuses } from '../../constants/statuses';
+import { allStatuses } from "../../constants/statuses";
 
-import * as ROUTES from '../../constants/routes';
+import * as ROUTES from "../../constants/routes";
+
+import { tasksAPI } from "../../api";
 
 import {
   NavigationScreenProp,
   NavigationState,
   NavigationParams,
-} from 'react-navigation';
+} from "react-navigation";
 
-const tasks = [
-  {
-    id: 1,
-    status: 'inReview',
-    title: 'Some text',
-  },
-  {
-    id: 2,
-    status: 'inReview',
-    title: 'Some text some text!',
-  },
-  {
-    id: 3,
-    status: 'done',
-    title: 'qwexdwaxd',
-  },
-  {
-    id: 4,
-    status: 'todo',
-    title: 'Yasdasdasdsd',
-  },
-  {
-    id: 5,
-    status: 'done',
-    title: 'Ya aDdd',
-  },
-];
-
-const startFrom = 'todo';
+const startFrom = "todo";
 interface IItemListProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
 }
 
-export const Board: React.FC<IItemListProps> = props => {
+export const Board: React.FC<IItemListProps> = (props) => {
+  const [tasks, setTasks] = useState([]);
+
   const { navigation } = props;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await tasksAPI.getAllTasks();
+      setTasks(result.data);
+    };
+    fetchData();
+  }, [tasks]);
 
   const [
     selected,
@@ -62,9 +46,14 @@ export const Board: React.FC<IItemListProps> = props => {
     { isNextDisabled },
   ] = useStatusFilter(allStatuses, startFrom);
 
-  const displayedTasks = tasks.filter(task => task.status === selected.status);
+  const displayedTasks = tasks.filter(
+    (task) => task.status === selected.status
+  );
 
   const navigateToCreateTask = () => navigation.navigate(ROUTES.CREATETASK);
+
+  const navigateToEditTask = (task) =>
+    navigation.navigate(ROUTES.CREATETASK, { task });
 
   return (
     <BoardStyle.List>
@@ -76,7 +65,7 @@ export const Board: React.FC<IItemListProps> = props => {
         isNextDisabled={isNextDisabled}
       />
       <Card>
-        <TasksList tasks={displayedTasks} />
+        <TasksList tasks={displayedTasks} onItemClick={navigateToEditTask} />
       </Card>
       <IconButton handleIconButton={navigateToCreateTask} />
     </BoardStyle.List>
