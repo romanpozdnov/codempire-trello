@@ -13,13 +13,13 @@ export const allStatuses = [
   },
   {
     id: 3,
-    status: 'inProgress',
+    status: 'in-progress',
     displayedName: 'In Progress',
     order: 2,
   },
   {
     id: 4,
-    status: 'inReview',
+    status: 'in-review',
     displayedName: 'In Review',
     order: 3,
   },

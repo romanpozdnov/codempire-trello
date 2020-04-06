@@ -1,8 +1,8 @@
 export const validate = values => {
   let errors = {};
 
-  if (!values.task) {
-    errors.task = 'Task is required';
+  if (!values.title) {
+    errors.title = 'Task is required';
   }
 
   if (!values.author) {
@@ -15,6 +15,10 @@ export const validate = values => {
 
   if (!values.priority) {
     errors.priority = 'Priority is required';
+  }
+
+  if (!values.status) {
+    errors.status = 'Status is required';
   }
 
   return errors;

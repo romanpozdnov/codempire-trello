@@ -2,16 +2,6 @@ import { useState } from 'react';
 
 import { ITask, TFormErrors } from '../../constants/types';
 
-const initialState = {
-  task: {
-    task: '',
-    user: '',
-    date: '',
-    priority: '',
-  },
-  errors: {},
-};
-
 interface IFormState {
   task: ITask;
   errors: TFormErrors;
@@ -20,19 +10,25 @@ interface IFormState {
 export const useForm = (
   onSubmit: (v: ITask) => void,
   validate: (v: ITask) => TFormErrors,
+  initialValues: any,
+  navigateToBoard: () => void,
 ) => {
-  const [state, setState] = useState<IFormState>(initialState);
+  const [state, setState] = useState<IFormState>({
+    task: initialValues,
+    errors: {}
+  });
 
   const handleSubmit = () => {
     const newErrors = validate(state.task);
     if (!Object.keys(newErrors).length) {
       onSubmit(state.task);
+      navigateToBoard();
     }
-    setState(prevState => ({ ...prevState, errors: newErrors }));
+    setState((prevState) => ({ ...prevState, errors: newErrors }));
   };
 
   const handleValueChange = (name: string, value: ITask) => {
-    setState(prevState => ({
+    setState((prevState) => ({
       ...prevState,
       task: { ...prevState.task, [name]: value },
     }));
@@ -44,4 +40,5 @@ export const useForm = (
     values: state.task,
     errors: state.errors,
   };
+
 };

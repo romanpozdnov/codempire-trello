@@ -1,5 +1,5 @@
-import React from 'react';
-import { Input } from 'react-native-elements';
+import React from "react";
+import { Input } from "react-native-elements";
 
 interface IInputFieldProps {
   label?: string;
@@ -10,16 +10,16 @@ interface IInputFieldProps {
   errors?: string;
 }
 
-export const InputField: React.FC<IInputFieldProps> = props => {
+export const InputField: React.FC<IInputFieldProps> = (props) => {
   const { label, name, value, handleValueChange, leftIconName, errors } = props;
 
   return (
     <Input
       label={label}
       value={value}
-      onChangeText={text => handleValueChange(name, text)}
+      onChangeText={(text) => handleValueChange(name, text)}
       leftIcon={{
-        type: 'font-awesome',
+        type: "font-awesome",
         name: leftIconName,
         containerStyle: { marginRight: 15 },
       }}

@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Picker } from 'react-native';
+import React from "react";
+import { View, Picker } from "react-native";
 
-import { PriorityPickerStyle } from './priority-picker.style';
+import { PriorityPickerStyle } from "./priority-picker.style";
 
-import { priorities } from '../../constants/priorities';
+import { priorities } from "../../constants/priorities";
 
 interface IPriorityPickerProps {
   name: string;
@@ -12,17 +12,18 @@ interface IPriorityPickerProps {
   errors: string;
 }
 
-export const PriorityPicker: React.FC<IPriorityPickerProps> = props => {
+export const PriorityPicker: React.FC<IPriorityPickerProps> = (props) => {
   const { name, value, handleValueChange, errors } = props;
 
   return (
     <View>
       <Picker
         selectedValue={value}
-        onValueChange={selectedPriority =>
+        onValueChange={(selectedPriority) =>
           handleValueChange(name, selectedPriority)
-        }>
-        {priorities.map(priority => (
+        }
+      >
+        {priorities.map((priority) => (
           <Picker.Item
             label={priority.label}
             value={priority.value}
