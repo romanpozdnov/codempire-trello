@@ -40,7 +40,7 @@ export class TasksController {
     return null;
   }
 
-  @Delete("delete/:id")
+  @Delete(":id")
   async removeById(@Param("id") _id: string) {
     await this.tasksService.removeById(_id);
     return null;
