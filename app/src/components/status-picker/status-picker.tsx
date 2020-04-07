@@ -3,7 +3,7 @@ import { View, Picker } from "react-native";
 
 import { StatusPickerStyle } from "./status-picker.style";
 
-import { allStatuses } from "../../constants/statuses";
+import { allStatuses } from "../../constants/task-statuses";
 
 interface IStatusPickerProps {
   name: string;

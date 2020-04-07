@@ -11,11 +11,7 @@ import { DatePicker } from "../../components/date-time-picker/";
 import { PriorityPicker } from "../../components/priority-picker/";
 import { StatusPicker } from "../../components/status-picker";
 
-import { tasksAPI } from "../../api";
-
 import * as ROUTES from "../../constants/routes";
-
-import { ITask } from "../../constants/types";
 
 import {
   NavigationScreenProp,
@@ -30,37 +26,24 @@ interface ICreateTaskProps {
 
 export const CreateTask: React.FC<ICreateTaskProps> = ({
   route,
-  navigation,
+  navigation
 }) => {
   const { _id, title, author, date, priority, status } =
     route?.params?.task || {};
 
-  const saveTask = async (values: ITask) => {
-    _id
-      ? await tasksAPI.updateTask(_id, values)
-      : await tasksAPI.createTask(values);
-  };
+  const navigateToBoard = () => navigation.navigate(ROUTES.ITEMLIST);
 
-  const deleteTask = async () => {
-    await tasksAPI.deleteTask(_id);
-    navigateToBoard();
-  };
-
-  const navigateToBoard = () => {
-    navigation.navigate(ROUTES.ITEMLIST);
-  };
-
-  const { handleSubmit, handleValueChange, values, errors } = useForm(
-    saveTask,
+  const { handleSubmit, handleValueChange, values, errors, removeTask } = useForm(
     validate,
     {
+      _id: _id || "",
       title: title || "",
       author: author || "",
       date: date ? new Date(date) : "",
       priority: priority || "minor",
       status: status || "backlog",
     },
-    navigateToBoard
+    navigateToBoard,
   );
 
   return (
@@ -121,7 +104,7 @@ export const CreateTask: React.FC<ICreateTaskProps> = ({
           <CreateTaskStyle.FormField>
             <CreateTaskStyle.DeleteTaskBtn
               title="DELETE"
-              onPress={() => deleteTask()}
+              onPress={removeTask}
             />
           </CreateTaskStyle.FormField>
         )}

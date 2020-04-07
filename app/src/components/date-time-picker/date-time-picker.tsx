@@ -7,6 +7,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { DatePickerStyle } from "./date-time-picker.style";
 
 import { TDate } from "../../constants/types";
+import { DATE_FORMAT } from "../../constants/date-formats";
 
 interface IDatePickerProps {
   label: string;
@@ -42,7 +43,7 @@ export const DatePicker: React.FC<IDatePickerProps> = (props) => {
             <Input
               label={label}
               leftIcon={leftIcon}
-              value={date ? format(date, "MMMM d, yyyy H:mma") : ""}
+              value={date ? format(date, DATE_FORMAT) : ""}
             />
           </View>
         </View>

@@ -8,11 +8,11 @@ import { NavBar } from "../../components/nav-bar/";
 import { TasksList } from "../../components/tasks-list";
 import { IconButton } from "../../components/icon-button";
 
-import { allStatuses } from "../../constants/statuses";
+import { allStatuses } from "../../constants/task-statuses";
 
 import * as ROUTES from "../../constants/routes";
 
-import { tasksAPI } from "../../api";
+import { API } from "../../services/api";
 
 import {
   NavigationScreenProp,
@@ -32,7 +32,7 @@ export const Board: React.FC<IItemListProps> = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await tasksAPI.getAllTasks();
+      const result = await API.getAllTasks();
       setTasks(result.data);
     };
     fetchData();
