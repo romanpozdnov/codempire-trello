@@ -31,6 +31,8 @@ export const CreateTask: React.FC<ICreateTaskProps> = ({
   const { _id, title, author, date, priority, status } =
     route?.params?.task || {};
 
+  const { getTasks } = route.params;
+
   const navigateToBoard = () => navigation.navigate(ROUTES.ITEMLIST);
 
   const { handleSubmit, handleValueChange, values, errors, removeTask } = useForm(
@@ -44,6 +46,7 @@ export const CreateTask: React.FC<ICreateTaskProps> = ({
       status: status || "backlog",
     },
     navigateToBoard,
+    getTasks
   );
 
   return (

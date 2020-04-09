@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { API } from "../../services/api";
+import { createTask, updateTask, deleteTask } from "./create-task.api";
 
 import { ITask, TFormErrors } from '../../constants/types';
 import Toast from 'react-native-root-toast';
@@ -16,6 +16,7 @@ export const useForm = (
   validate: (v: ITask) => TFormErrors,
   initialValues: any,
   navigateToBoard: () => void,
+  getTasks: () => void,
 ) => {
   const [state, setState] = useState<IFormState>({
     task: initialValues,
@@ -29,13 +30,15 @@ export const useForm = (
       const { task } = state;
       setState({ ...state, isLoading: true });
       if (task._id) {
-        await API.updateTask(task._id, task);
+        await updateTask(task._id, task);
         Toast.show('Task was updated successfully');
         navigateToBoard();
+        getTasks();
       } else {
-        await API.createTask(task);
+        await createTask(task);
         Toast.show('Task was created successfully');
         navigateToBoard();
+        getTasks();
       }
     } catch (error) {
       setState({ ...state, isAjaxError: error });
@@ -49,10 +52,13 @@ export const useForm = (
     try {
       const { task } = state;
       setState({ ...state, isLoading: true });
-      await API.deleteTask(task._id);
+      await deleteTask(task._id);
+      Toast.show('Task was deleted successfully');
       navigateToBoard();
+      getTasks();
     } catch (error) {
       setState({ ...state, isAjaxError: error });
+      Toast.show('Something went wrong...');
     } finally {
       setState({ ...state, isLoading: false });
     }

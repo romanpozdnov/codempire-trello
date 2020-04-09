@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "react-native-elements";
 
-import { useStatusFilter } from "./board.state";
+import { useBoard } from "./board.state";
 import { BoardStyle } from "./board.style";
 
 import { NavBar } from "../../components/nav-bar/";
@@ -11,8 +11,6 @@ import { IconButton } from "../../components/icon-button";
 import { allStatuses } from "../../constants/task-statuses";
 
 import * as ROUTES from "../../constants/routes";
-
-import { API } from "../../services/api";
 
 import {
   NavigationScreenProp,
@@ -26,40 +24,32 @@ interface IItemListProps {
 }
 
 export const Board: React.FC<IItemListProps> = (props) => {
-  const [tasks, setTasks] = useState([]);
-
   const { navigation } = props;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await API.getAllTasks();
-      setTasks(result.data);
-    };
-    fetchData();
-  }, [tasks]);
-
   const [
-    selected,
+    getTasks,
+    tasks,
+    selectedStatus,
     prev,
     next,
     { isPrevDisabled },
     { isNextDisabled },
-  ] = useStatusFilter(allStatuses, startFrom);
+  ] = useBoard(allStatuses, startFrom);
 
   const displayedTasks = tasks.filter(
-    (task) => task.status === selected.status
+    (task) => task.status === selectedStatus.status
   );
 
-  const navigateToCreateTask = () => navigation.navigate(ROUTES.CREATETASK);
+  const navigateToCreateTask = () => navigation.navigate(ROUTES.CREATETASK, { getTasks });
 
   const navigateToEditTask = (task) =>
-    navigation.navigate(ROUTES.CREATETASK, { task });
+    navigation.navigate(ROUTES.CREATETASK, { task, getTasks });
 
   return (
     <BoardStyle.List>
       <NavBar
         prevHandler={prev}
-        headerStatus={selected.displayedName}
+        headerStatus={selectedStatus.displayedName}
         nextHandler={next}
         isPrevDisabled={isPrevDisabled}
         isNextDisabled={isNextDisabled}
