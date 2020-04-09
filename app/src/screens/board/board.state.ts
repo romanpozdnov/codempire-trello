@@ -1,12 +1,16 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-interface IStatusFilterState {
+import { getAllTasks } from "./board.api";
+import { ITask } from "src/constants/types";
+
+interface IBoard {
+  tasks?: [];
   currentIndex: any;
   isPrevDisabled: boolean;
   isNextDisabled: boolean;
 }
 
-export const useStatusFilter = (allStatuses: [], initialStatus: string) => {
+export const useBoard = (allStatuses: [], initialStatus: string) => {
   const ordered = allStatuses.sort((a, b) => a.order - b.order);
 
   const findStartIndex = () =>
@@ -14,16 +18,30 @@ export const useStatusFilter = (allStatuses: [], initialStatus: string) => {
   const startIndex = findStartIndex();
 
   const initialValues = {
+    tasks: [],
     currentIndex: startIndex,
     isPrevDisabled: false,
     isNextDisabled: false,
   };
 
-  const [state, setState] = useState<IStatusFilterState>(initialValues);
+  const [state, setState] = useState<IBoard>(initialValues);
+
+  useEffect(() => {
+    getTasks();
+  }, []);
+
+  const getTasks = async () => {
+    try {
+      const result = await getAllTasks();
+      setState((prevState: IBoard) => ({ ...prevState, tasks: result.data }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getPrev = () => {
     const index = state.currentIndex - 1;
-    setState((prevState: IStatusFilterState) => ({
+    setState((prevState: IBoard) => ({
       ...prevState,
       currentIndex: index,
     }));
@@ -32,7 +50,7 @@ export const useStatusFilter = (allStatuses: [], initialStatus: string) => {
 
   const getNext = () => {
     const index = state.currentIndex + 1;
-    setState((prevState: IStatusFilterState) => ({
+    setState((prevState: IBoard) => ({
       ...prevState,
       currentIndex: index,
     }));
@@ -40,7 +58,7 @@ export const useStatusFilter = (allStatuses: [], initialStatus: string) => {
   };
 
   const setDisabled = (index: number) => {
-    setState((prevState: IStatusFilterState) => ({
+    setState((prevState: IBoard) => ({
       ...prevState,
       isPrevDisabled: index === 0,
       isNextDisabled: index === ordered.length - 1,
@@ -48,6 +66,8 @@ export const useStatusFilter = (allStatuses: [], initialStatus: string) => {
   };
 
   return [
+    getTasks,
+    state.tasks,
     ordered[state.currentIndex],
     getPrev,
     getNext,

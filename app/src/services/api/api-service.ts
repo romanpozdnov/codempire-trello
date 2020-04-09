@@ -2,24 +2,25 @@ import axios from "axios";
 
 import { BASE_URL } from "./api-service.constants";
 
-import { ITask } from "../../constants/types";
+const getInstance = () => {
+  const instance = axios.create({
+    baseURL: `${BASE_URL}`,
+  });
+  return instance;
+}
 
-const API = axios.create({
-  baseURL: BASE_URL,
-});
-
-export const getAllTasks = () => {
-  return API.get("/tasks");
+export const fetchData = (requestUrl: string, params?: {}): any => {
+  return getInstance().get(`${requestUrl}`, { params });
 };
 
-export const createTask = (task: ITask) => {
-  API.post("/tasks", task);
+export const postData = (requestUrl: string, payload: any): any => {
+  return getInstance().post(`${requestUrl}`, payload);
 };
 
-export const updateTask = (_id: string, task: ITask) => {
-  API.patch(`/tasks/${_id}`, task);
+export const changeData = (requestUrl: string, payload: any): any => {
+  return getInstance().patch(`${requestUrl}`, payload);
 };
 
-export const deleteTask = (_id: string) => {
-  API.delete(`/tasks/${_id}`);
+export const deleteData = (requestUrl: string, params?: any): any => {
+  return getInstance().delete(`${requestUrl}`, params);
 };
