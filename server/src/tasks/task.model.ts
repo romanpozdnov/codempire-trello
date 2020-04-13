@@ -6,6 +6,7 @@ export const TaskSchema = new mongoose.Schema({
   date: { type: String, required: true },
   status: { type: String, required: true },
   priority: { type: String, required: true },
+  avatarUrl: { type: String, required: false }
 });
 
 export interface Task extends mongoose.Document {
@@ -15,4 +16,5 @@ export interface Task extends mongoose.Document {
   date: string;
   status: string;
   priority: string;
+  avatarUrl: string;
 }

@@ -9,4 +9,5 @@ export interface ITask {
   date?: TDate | string;
   priority?: string;
   status?: string;
+  avatarUrl?: string;
 }

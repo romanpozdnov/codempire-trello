@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import { getAllTasks } from "./board.api";
-import { ITask } from "src/constants/types";
 
 interface IBoard {
   tasks?: [];

@@ -1,6 +1,8 @@
 import React from "react";
 
-import { Card } from "react-native-elements";
+import { Card, Button } from "react-native-elements";
+
+import { Image } from "react-native";
 
 import { useForm } from "./create-task.state";
 import { validate } from "./validation-rules";
@@ -19,6 +21,7 @@ import {
   NavigationParams,
 } from "react-navigation";
 
+
 interface ICreateTaskProps {
   route?: any;
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
@@ -28,25 +31,33 @@ export const CreateTask: React.FC<ICreateTaskProps> = ({
   route,
   navigation
 }) => {
-  const { _id, title, author, date, priority, status } =
+  const { _id, title, author, date, priority, status, avatarUrl } =
     route?.params?.task || {};
 
-  const { getTasks } = route.params;
+  const { getTasks } = route?.params;
 
   const navigateToBoard = () => navigation.navigate(ROUTES.ITEMLIST);
 
-  const { handleSubmit, handleValueChange, values, errors, removeTask } = useForm(
+  const {
+    handleSubmit,
+    handleValueChange,
+    values,
+    errors,
+    removeTask,
+    selectImage
+  } = useForm(
     validate,
     {
-      _id: _id || "",
+      _id: _id || null,
       title: title || "",
       author: author || "",
       date: date ? new Date(date) : "",
       priority: priority || "minor",
       status: status || "backlog",
+      avatarUrl: avatarUrl || "",
     },
     navigateToBoard,
-    getTasks
+    getTasks,
   );
 
   return (
@@ -103,6 +114,17 @@ export const CreateTask: React.FC<ICreateTaskProps> = ({
             errors={errors.status}
           />
         </CreateTaskStyle.FormField>
+
+
+        <CreateTaskStyle.FormField>
+          {values.avatarUrl
+              ? <Image source={{ uri: values.avatarUrl }} style={{ width: '80%', height: 200, resizeMode: 'contain' }} />
+              : null
+          }
+          <Button title="Select image" onPress={selectImage} />
+        </CreateTaskStyle.FormField>
+
+
         {_id && (
           <CreateTaskStyle.FormField>
             <CreateTaskStyle.DeleteTaskBtn
