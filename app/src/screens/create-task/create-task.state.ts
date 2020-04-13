@@ -76,16 +76,11 @@ export const useForm = (
     };
 
     ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-
-        setState({ ...state, task: { ...state.task, avatarUrl: response.uri } });
+      if (response.didCancel || response.error || response.customButton) {
+        return
       }
+
+      setState({ ...state, task: { ...state.task, imageUrl: response.uri } });
     }
     )
   };
