@@ -18,7 +18,7 @@ export const TasksList: React.FC<ITasksList> = (props) => {
   const renderItem = ({ item }) => (
     <ListItem
       title={item.title}
-      leftAvatar={{ source: { uri: item.avatarUrl } }}
+      leftAvatar={{ source: { uri: item.imageUrl } }}
       onPress={() => onItemClick(item)}
       bottomDivider
       chevron

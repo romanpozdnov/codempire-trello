@@ -4,6 +4,10 @@ export const CreateTaskStyle = {
   Container: styled.ScrollView`
     flex: 1;
   `,
+  SelectImageBtn: styled.Button`
+    margin-top: 10px;
+    margin-bottom: 10px;
+`,
   AddTaskBtn: styled.Button`
     margin-top: 10px;
     margin-bottom: 10px;

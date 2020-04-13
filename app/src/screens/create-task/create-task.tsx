@@ -2,7 +2,7 @@ import React from "react";
 
 import { Card, Button } from "react-native-elements";
 
-import { Image } from "react-native";
+import { StyleSheet, Image } from "react-native";
 
 import { useForm } from "./create-task.state";
 import { validate } from "./validation-rules";
@@ -31,7 +31,7 @@ export const CreateTask: React.FC<ICreateTaskProps> = ({
   route,
   navigation
 }) => {
-  const { _id, title, author, date, priority, status, avatarUrl } =
+  const { _id, title, author, date, priority, status, imageUrl } =
     route?.params?.task || {};
 
   const { getTasks } = route?.params;
@@ -54,7 +54,7 @@ export const CreateTask: React.FC<ICreateTaskProps> = ({
       date: date ? new Date(date) : "",
       priority: priority || "minor",
       status: status || "backlog",
-      avatarUrl: avatarUrl || "",
+      imageUrl: imageUrl || "",
     },
     navigateToBoard,
     getTasks,
@@ -114,17 +114,13 @@ export const CreateTask: React.FC<ICreateTaskProps> = ({
             errors={errors.status}
           />
         </CreateTaskStyle.FormField>
-
-
         <CreateTaskStyle.FormField>
-          {values.avatarUrl
-              ? <Image source={{ uri: values.avatarUrl }} style={{ width: '80%', height: 200, resizeMode: 'contain' }} />
-              : null
+          {values.imageUrl
+            ? <Image style={styles.image} source={{ uri: values.imageUrl }} />
+            : null
           }
-          <Button title="Select image" onPress={selectImage} />
+          <CreateTaskStyle.SelectImageBtn title="Select image" onPress={selectImage} />
         </CreateTaskStyle.FormField>
-
-
         {_id && (
           <CreateTaskStyle.FormField>
             <CreateTaskStyle.DeleteTaskBtn
@@ -140,3 +136,11 @@ export const CreateTask: React.FC<ICreateTaskProps> = ({
     </CreateTaskStyle.Container>
   );
 };
+
+const styles = StyleSheet.create({
+  image: {
+    width: '80%',
+    height: 200,
+    resizeMode: 'contain',
+  }
+});

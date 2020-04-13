@@ -15,5 +15,5 @@ export class TaskDto {
   @IsNotEmpty()
   priority: string;
 
-  avatarUrl: string;
+  imageUrl: string;
 }
