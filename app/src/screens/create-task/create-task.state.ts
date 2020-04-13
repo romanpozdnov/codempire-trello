@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import ImagePicker from 'react-native-image-picker';
+
 import { createTask, updateTask, deleteTask } from "./create-task.api";
 
 import { ITask, TFormErrors } from '../../constants/types';
@@ -64,6 +66,30 @@ export const useForm = (
     }
   };
 
+  const selectImage = async () => {
+    const options = {
+      title: 'Select Avatar',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+
+        setState({ ...state, task: { ...state.task, avatarUrl: response.uri } });
+      }
+    }
+    )
+  };
+
   const handleSubmit = () => {
     const newErrors = validate(state.task);
     if (!Object.keys(newErrors).length) {
@@ -85,6 +111,7 @@ export const useForm = (
     values: state.task,
     errors: state.errors,
     removeTask,
+    selectImage,
   };
 
 };
